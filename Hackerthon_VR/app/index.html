@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fff78c">
+    <title>A-Saturday-Night</title>
+    <meta name="description" content="A WebVR dancing experience using A-Frame by Mozilla VR.">
+    <link rel="stylesheet" href="style.css">
+    <script src="vendor/aframe.min.js"></script>
+    <script src="build/build.js"></script>
+    <link rel="manifest" href="manifest.webmanifest">
+
+  </head>
+  <body>
+    <div class="instructions-overlay" id="instructions">
+      <div class="instructions">
+        <img src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2Flogo.PNG?v=1600968144580" alt="Logo">
+        <div>
+          <br><br>
+          <h2>광인사에 오신것을 환영합니다.</h2><br><br>
+          광주 인공지능사관학교는 멋쟁이 사자처럼의 7년 간의<br> 교육 노하우와
+광주시의 인공지능 클러스터 사업을 바탕으로 <br>
+교육생에게 AI 특화 교육을 제공하여 AI 전문인재로<br>
+          성장할 수 있도록 돕습니다.</b><a href="http://ai.gitct.kr/">링크</a>  <a href=""></a></a></p>
+        </div>
+        <button class="start-button" onclick="location.href='index2.html'"><span>둘러보기</span></button>
+        <div class="credits">
+          <span class="title">Team URL </span>
+        </div>
+      </div>
+    </div>
+
+    <a-scene uploadcare="publicKey: 85ed3c25d99e387316bd" game-state
+             avatar-recorder="spectatorPlay: true; spectatorPosition: 0 0 0; localStorage: false; saveFile: false"
+             auto-enter-vr="enabled: false">
+
+        
+        <!-- Avatar Hands -->
+        <a-entity id="leftHand" visible="false"></a-entity>
+        <a-entity id="rightHand" visible="false"></a-entity>
+      </a-entity>
+      <!-- Texts -->
+
+    <div id="asaturday-ui" class="hide dialog">
+      <div class="progress hide">
+        Saving dance...
+        <div class="bar"></div>
+      </div>
+      <div class="share hide">
+        <div class="help">
+          <h1>Dance saved!</h1>
+          <p>광인사에 오신걸 환영합니다.</p>
+        </div>
+        <div class="form">
+          <a id="sharetwitter" href="#" class="button" target="_blank"><img src="assets/twitter.gif" alt="Share on Twitter"></a>
+          <a id="sharefacebook" href="#" class="button" target="_blank"><img src="assets/facebook.gif" alt="Share on Facebook"></a>
+          <input id="asaturday-share-url" type="text" value="" readonly>
+          <div id="copy-toclipboard" data-clipboard-target="#asaturday-share-url" class="button copy">COPY URL</div>
+          <a href="javascript:;" class="button" id="generategif">MAKE GIF</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

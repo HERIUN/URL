@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>360&deg; Image Gallery</title>
+    <meta name="description" content="360&deg; Image Gallery - A-Frame" />
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
+
+    <!-- Image link template to be reused. -->
+    <script id="link" type="text/html">
+      <a-entity class="link"
+        geometry="primitive: plane; height: 1; width: 1"
+        material="shader: flat; src: ${thumb}"
+        event-set__mouseenter="scale: 1.2 1.2 1"
+        event-set__mouseleave="scale: 1 1 1"
+        event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
+        proxy-event="event: click; to: #image-360; as: fade"
+        sound="on: click; src: #click-sound"></a-entity>
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    
+    
+    
+  </head>
+  <body>
+    <a-scene 
+      cursor="rayOrigin: mouse"
+      inspector=""
+      keyboard-shortcuts=""
+      screenshot=""
+      vr-mode-ui=""
+      device-orientation-permission-ui=""
+    >
+      <a-assets>
+        <!--    Thumbnail Area      -->
+        <img id="room_1_thumb" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2FIMG_0012.JPG?v=1600952802696"/>
+        <img id="room_2_thumb" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2FIMG_0013.JPG?v=1600952804089"/>
+        <img id="corridor_thumb" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2FIMG_0014.JPG?v=1600952803040"/>
+        <img id="hall_elev_thumb" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2FIMG_0015.JPG?v=1600952808661"/>
+        <img id="hall_info_thumb" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2FIMG_0016.JPG?v=1600952804951"/>
+        <img id="mart_door_thumb" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2FIMG_0018.JPG?v=1600952806413"/>
+        <img id="mart_inside_thumb" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2FIMG_0019.JPG?v=1600952806948"/>
+        <img id="classroom_thumb" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2F%EA%B0%95%EC%9D%98%EC%8B%A4.jpg?v=1600974398919"/>
+        <img id="projectroom_thumb" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2FIMG_0023.JPG?v=1600952801401"/>
+        <img id="lounge_thumb" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2FIMG_0021.JPG?v=1600952804206"/>
+        <img id="second_floor_thumb" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2FIMG_0022.JPG?v=1600952803705"/>
+        <img id="frontdoor_thumb" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2Fcopy.jpg?v=1600972963842"/>
+        
+        <audio
+          id="click-sound"
+          crossorigin="anonymous"
+          src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"
+        ></audio>
+
+        <!--   360 Image Area      -->
+        <img id="arrow" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2Farrow.png?v=1600960871536"/>
+        <img id="room_1" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2F%EA%B8%B0%EC%88%99%EC%82%AC.jpg?v=1600976153915"/>
+        <img id="room_2" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2FIMG_0013.JPG?v=1600952804089"/>
+        <img id="corridor" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2F%EA%B8%B0%EC%88%99%EC%82%AC%EB%B3%B5%EB%8F%84.jpg?v=1600975670217"/>
+        <img id="hall_elev" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2F1%EC%B8%B5%EC%97%98%EB%B2%A0%EC%95%9E%EC%8B%9D%EB%8B%B9.jpg?v=1600976423781"/>
+        <img id="hall_info" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2F1%EC%B8%B5%EB%A1%9C%EB%B9%84_1.jpg?v=1600976705798"/>
+        <img id="mart_door" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2F%ED%8E%B8%EC%9D%98%EC%A0%90.jpg?v=1600974709115"/>
+        <img id="mart_inside" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2FIMG_0019.JPG?v=1600952806948"/>
+        <img id="classroom" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2F%EA%B0%95%EC%9D%98%EC%8B%A4.jpg?v=1600974398919"/>
+        <img id="projectroom" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2F%ED%9A%8C%EC%9D%98%EC%8B%A4.jpg?v=1600975436155"/>
+        <img id="lounge" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2F%ED%9C%B4%EA%B2%8C%EC%8B%A4.jpg?v=1600975032619"/>
+        <img id="second_floor" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2F2%EC%B8%B5%EB%A1%9C%EB%B9%84.jpg?v=1600975537564"/>
+        <img id="frontdoor" crossorigin="anonymous" src="https://cdn.glitch.com/eeddf875-83e1-4df8-a4a2-623255956007%2F%EC%9E%85%EA%B5%AC.jpg?v=1600977053597"/>
+             
+        
+      </a-assets>
+
+      <!-- entities -->
+      
+      <a-image id="to_room_1_arrow" src="https://cdn.glitch.com/05db70f4-ac72-4b1e-b0c6-1c8ddde01b68%2F%E2%80%94Pngtree%E2%80%94map%20location%20marker%20icon%20in_5004115.png?v=1600970563497" position="" rotation="0 150 0"></a-image>
+      <a-entity id="to_room_1" layout="margin: 1.5; angle: 0; columns: 3" position="5 0 -6" rotation="0 270 0" visible="false">
+        <a-entity template="src: #link" data-src="#room_1" data-thumb="#room_1_thumb"></a-entity>
+      </a-entity>
+      
+      <a-image id="to_room_2_arrow" src="https://cdn.glitch.com/05db70f4-ac72-4b1e-b0c6-1c8ddde01b68%2F%E2%80%94Pngtree%E2%80%94map%20location%20marker%20icon%20in_5004115.png?v=1600970563497" position="" rotation="0 150 0"></a-image>
+      <a-entity id="to_room_2" layout="margin: 1.5; angle: 0; columns: 3" position="5 0 -5" rotation="0 270 0" visible="false">
+        <a-entity template="src: #link" data-src="#room_2" data-thumb="#room_2_thumb"></a-entity>
+      </a-entity>
+      
+      <a-image id="to_corridor_arrow" src="https://cdn.glitch.com/05db70f4-ac72-4b1e-b0c6-1c8ddde01b68%2F%E2%80%94Pngtree%E2%80%94map%20location%20marker%20icon%20in_5004115.png?v=1600970563497" position="" rotation="0 150 0"></a-image>
+      <a-entity id="to_corridor" layout="margin: 1.5; angle: 0; columns: 3" position="5 0 -4" rotation="0 270 0" visible="false">
+        <a-entity template="src: #link" data-src="#corridor" data-thumb="#corridor_thumb"></a-entity>
+      </a-entity>
+      
+      <a-image id="to_hall_elev_arrow" src="https://cdn.glitch.com/05db70f4-ac72-4b1e-b0c6-1c8ddde01b68%2F%E2%80%94Pngtree%E2%80%94map%20location%20marker%20icon%20in_5004115.png?v=1600970563497" position="" rotation="0 150 0"></a-image>
+      <a-entity id="to_hall_elev" layout="margin: 1.5; angle: 0; columns: 3" position="5 0 -3" rotation="0 270 0" visible="false">
+        <a-entity template="src: #link" data-src="#hall_elev" data-thumb="#hall_elev_thumb"></a-entity>
+      </a-entity>
+      
+      <a-image id="to_hall_info_arrow" src="https://cdn.glitch.com/05db70f4-ac72-4b1e-b0c6-1c8ddde01b68%2F%E2%80%94Pngtree%E2%80%94map%20location%20marker%20icon%20in_5004115.png?v=1600970563497" position="-2 -0.72655 3.50001" rotation="0 150 0"></a-image>
+      <a-entity id="to_hall_info" layout="margin: 1.5; angle: 0; columns: 3" position="-2 -0.72655 3.5" rotation="0 150 0" visible="false">
+        <a-entity template="src: #link" data-src="#hall_info" data-thumb="#hall_info_thumb"></a-entity>
+      </a-entity>
+      
+      <a-image id="to_mart_door_arrow" src="https://cdn.glitch.com/05db70f4-ac72-4b1e-b0c6-1c8ddde01b68%2F%E2%80%94Pngtree%E2%80%94map%20location%20marker%20icon%20in_5004115.png?v=1600970563497" position="" rotation="0 150 0"></a-image>
+      <a-entity id="to_mart_door" layout="margin: 1.5; angle: 0; columns: 3" position="5 0 -1" rotation="0 270 0" visible="false">
+        <a-entity template="src: #link" data-src="#mart_door" data-thumb="#mart_door_thumb"></a-entity>
+      </a-entity>
+      
+      <a-image id="to_mart_inside_arrow" src="https://cdn.glitch.com/05db70f4-ac72-4b1e-b0c6-1c8ddde01b68%2F%E2%80%94Pngtree%E2%80%94map%20location%20marker%20icon%20in_5004115.png?v=1600970563497" position="" rotation="0 150 0"></a-image>
+      <a-entity id="to_mart_inside" layout="margin: 1.5; angle: 0; columns: 3" position="5 0 0" rotation="0 270 0" visible="false">
+        <a-entity template="src: #link" data-src="#mart_inside" data-thumb="#mart_inside_thumb"></a-entity>
+      </a-entity>
+      
+      <a-image id="to_classroom_arrow" src="https://cdn.glitch.com/05db70f4-ac72-4b1e-b0c6-1c8ddde01b68%2F%E2%80%94Pngtree%E2%80%94map%20location%20marker%20icon%20in_5004115.png?v=1600970563497" position="" rotation="0 150 0"></a-image>
+      <a-entity id="to_classroom" layout="margin: 1.5; angle: 0; columns: 3" position="5 0 1" rotation="0 270 0" visible="false">
+        <a-entity template="src: #link" data-src="#classroom" data-thumb="#classroom_thumb"></a-entity>
+      </a-entity>
+      
+      <a-image id="to_projectroom_arrow" src="https://cdn.glitch.com/05db70f4-ac72-4b1e-b0c6-1c8ddde01b68%2F%E2%80%94Pngtree%E2%80%94map%20location%20marker%20icon%20in_5004115.png?v=1600970563497" position="" rotation="0 150 0"></a-image>
+      <a-entity id="to_projectroom" layout="margin: 1.5; angle: 0; columns: 3" position="5 0 2" rotation="0 270 0" visible="false">
+        <a-entity template="src: #link" data-src="#projectroom" data-thumb="#projectroom_thumb"></a-entity>
+      </a-entity>
+      
+      <a-image id="to_lounge_arrow" src="https://cdn.glitch.com/05db70f4-ac72-4b1e-b0c6-1c8ddde01b68%2F%E2%80%94Pngtree%E2%80%94map%20location%20marker%20icon%20in_5004115.png?v=1600970563497" position="" rotation="0 150 0"></a-image>
+      <a-entity id="to_lounge" layout="margin: 1.5; angle: 0; columns: 3" position="5 0 3" rotation="0 270 0" visible="false">
+        <a-entity template="src: #link" data-src="#lounge" data-thumb="#lounge_thumb"></a-entity>
+      </a-entity>
+      
+      <a-image id="to_second_floor_arrow" src="https://cdn.glitch.com/05db70f4-ac72-4b1e-b0c6-1c8ddde01b68%2F%E2%80%94Pngtree%E2%80%94map%20location%20marker%20icon%20in_5004115.png?v=1600970563497" position="" rotation="0 150 0"></a-image>
+      <a-entity id="to_second_floor" layout="margin: 1.5; angle: 0; columns: 3" position="5 0 4" rotation="0 270 0" visible="false">
+        <a-entity template="src: #link" data-src="#second_floor" data-thumb="#second_floor_thumb"></a-entity>
+      </a-entity>
+      
+      <a-image id="to_frontdoor_arrow" src="https://cdn.glitch.com/05db70f4-ac72-4b1e-b0c6-1c8ddde01b68%2F%E2%80%94Pngtree%E2%80%94map%20location%20marker%20icon%20in_5004115.png?v=1600970563497" position="" rotation="0 150 0"></a-image>
+      <a-entity id="to_frontdoor" layout="margin: 1.5; angle: 0; columns: 3" position="5 0 5" rotation="0 270 0" visible="false">
+        <a-entity template="src: #link" data-src="#frontdoor" data-thumb="#frontdoor_thumb"></a-entity>
+      </a-entity>
+      
+      
+      
+      
+      
+      
+      <!-- 360-degree image. -->
+      <a-sky
+        id="image-360"
+        radius="10"
+        src="#frontdoor"
+        animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+        animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"
+        material=""
+        geometry=""
+        _delay="300"
+      ></a-sky>
+
+
+
+      <!-- Camera + cursor. -->
+      <a-entity
+        camera=""
+        look-controls="pointerLockEnabled:true"
+        position=""
+        rotation="0 150 0"
+        data-aframe-inspector-original-camera=""
+      >
+        <a-cursor
+          id="cursor"
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          event-set__mouseenter="[object Object]"
+          event-set__mouseleave="[object Object]"
+          raycaster="objects: .link"
+          material=""
+          cursor=""
+          geometry=""
+          color="springgreen"
+        ></a-cursor>
+      </a-entity>
+      <div class="a-loader-title" style="display: none;">
+        360° Image Gallery
+      </div>
+      
+    </a-scene>
+  </body>
+</html>
+
+<script src="script.js">
+
+</script>
